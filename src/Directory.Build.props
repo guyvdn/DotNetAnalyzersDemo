@@ -1,0 +1,49 @@
+<Project>
+
+	<ItemGroup Label="Code Analyzers">
+		<PackageReference Include="StyleCop.Analyzers" Version="*" PrivateAssets="All" />
+		<PackageReference Include="AsyncFixer" Version="*" PrivateAssets="All" />
+		<PackageReference Include="Microsoft.VisualStudio.Threading.Analyzers" Version="*" PrivateAssets="All" />
+		<PackageReference Include="Meziantou.Analyzer" Version="*" PrivateAssets="All" />
+		<PackageReference Include="SonarAnalyzer.CSharp" Version="*" PrivateAssets="All" />
+		<PackageReference Include="Roslynator.Analyzers" Version="*" PrivateAssets="All" />
+		<PackageReference Include="Roslynator.CodeAnalysis.Analyzers" Version="*" PrivateAssets="All" />
+		<PackageReference Include="Roslynator.Formatting.Analyzers" Version="*" PrivateAssets="All" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Analyzers" Version="*" PrivateAssets="All" />
+	</ItemGroup>
+	
+	<ItemGroup Label="Test Project Code Analyzers" Condition="$(MSBuildProjectName.EndsWith('Tests'))">
+		<PackageReference Include="FluentAssertions.Analyzers" Version="*" PrivateAssets="All" />
+	</ItemGroup>
+	
+	<PropertyGroup Label="Analyzer settings">
+		<!-- Run code analysis during build -->
+		<EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+		<!-- Specify a set of code analyzers to run according to a .NET release --> 
+		<AnalysisLevel>latest</AnalysisLevel>
+		<!-- Customize the set of rules that are enabled by default -->
+		<AnalysisMode>All</AnalysisMode>
+		<!-- Instruct the different language Compilers to treat warnings as errors -->
+		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+		<!-- Instruct Code Analysis to treat warnings as errors -->
+		<CodeAnalysisTreatWarningsAsErrors>false</CodeAnalysisTreatWarningsAsErrors>
+		<!-- To measure the impact of each rule -->
+		<ReportAnalyzer>false</ReportAnalyzer>
+		<!-- For projects that are not .NET 5 or later --> 
+		<EnableNETAnalyzers>true</EnableNETAnalyzers>
+		<RunAnalyzersDuringBuild>true</RunAnalyzersDuringBuild>
+		<RunAnalyzersDuringLiveAnalysis>true</RunAnalyzersDuringLiveAnalysis>
+	</PropertyGroup>	
+	
+	<PropertyGroup Label="Project settings" Condition="!$(MSBuildProjectName.EndsWith('Tests'))">
+		<NoWarn>$(NoWarn);AsyncFixer01</NoWarn>
+		<WarningsAsErrors>$(WarningsAsErrors);SA1200</WarningsAsErrors>
+		<WarningsNotAsErrors>$(WarningsNotAsErrors);MA0004</WarningsNotAsErrors>
+	</PropertyGroup>	
+	
+	<PropertyGroup Label="Test project settings" Condition="$(MSBuildProjectName.EndsWith('Tests'))">
+		<NoWarn>$(NoWarn);SA1600</NoWarn>
+		<WarningsAsErrors>$(WarningsAsErrors)</WarningsAsErrors>
+	</PropertyGroup>	
+
+</Project>

@@ -1,0 +1,7 @@
+﻿[*.cs]
+
+# SA1600: Elements should be documented
+dotnet_diagnostic.SA1600.severity = error
+
+# S1186: Methods should not be empty
+dotnet_diagnostic.S1186.severity = error
